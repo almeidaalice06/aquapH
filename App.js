@@ -1,21 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Loggin } from './src/components/loggin';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./screens/HomeScreen"; // Tela inicial
+import AnotherScreen from "./screens/AnotherScreen"; // Outra tela para navegar
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View>
-      <Loggin></Loggin>
-      <Text>Ola</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Another" component={AnotherScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
