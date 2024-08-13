@@ -6,6 +6,7 @@ export default function App() {
   return (
     <View>
       <Loggin></Loggin>
+      <Text>Ola</Text>
     </View>
   );
 }
