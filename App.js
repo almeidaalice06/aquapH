@@ -2,8 +2,8 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./HomeScreen"; // Tela inicial
-import AnotherScreen from "./AnotherScreen"; // Outra tela para navegar
+import HomeScreen from "./contents/HomeScreen"; // Tela inicial
+import AnotherScreen from "./contents/AnotherScreen"; // Outra tela para navegar
 
 const Stack = createNativeStackNavigator();
 
