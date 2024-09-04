@@ -97,3 +97,4 @@ xcuserdata/
 !default.xcworkspace
 project.xcworkspace/
 !default.xcuserstate
+node_modules

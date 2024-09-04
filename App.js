@@ -6,7 +6,6 @@ import PastasAmostras from "./screens/PastasAmostras";
 import PaginaInicial from "./screens/PaginaInicial";
 import InserirAmostra from "./screens/InserirAmostra";
 import Analise from "./screens/Analise";
-import Login from "./screens/Login";
 import Camera from "./screens/Camera";
 import ActionSheet from "./components/ActionSheet";
 
@@ -53,11 +52,7 @@ const App = () => {
               component={Analise}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
+          
             <Stack.Screen
               name="Camera"
               component={Camera}

@@ -12,7 +12,7 @@ const PaginaInicial = () => {
       <View style={styles.paginaInicialChild} />
       <Pressable
         style={[styles.button4, styles.button4FlexBox]}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("InserirAmostra")}
       >
         <View style={styles.button4FlexBox}>
           <Text style={styles.iniciar}>INICIAR</Text>
