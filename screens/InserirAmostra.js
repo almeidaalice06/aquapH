@@ -26,18 +26,7 @@ const InserirAmostra = () => {
           contentFit="cover"
           source={require("../assets/personcropcirclefill1.png")}
         />
-        <View style={[styles.button4, styles.buttonLayout]}>
-          <View
-            style={[
-              styles.anlisesQuimicasWrapper,
-              styles.anlisesWrapperFlexBox,
-            ]}
-          >
-            <Text style={[styles.anlisesQuimicas, styles.anlisesTypo]}>
-              Análises Quimicas
-            </Text>
-          </View>
-        </View>
+       
         <Pressable
           style={[styles.button5, styles.buttonLayout]}
           onPress={() => navigation.navigate("PastasAmostras")}
@@ -49,7 +38,7 @@ const InserirAmostra = () => {
             ]}
           >
             <Text style={[styles.histticoDeAnlises, styles.anlisesTypo]}>
-              Histótico de Análises
+              Histórico de Análises
             </Text>
           </View>
         </Pressable>

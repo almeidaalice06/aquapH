@@ -13,11 +13,17 @@ const PastasAmostras = () => {
       <View
         style={[styles.pastasAmostrasChild, styles.histricoDeAnlisesLayout]}
       />
+
       <View style={[styles.button5, styles.button5FlexBox]}>
         <View style={[styles.criarPastaWrapper, styles.button5FlexBox]}>
-          <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>
-            Criar pasta
-          </Text>
+          <Pressable
+            style={[styles.button4, styles.button4FlexBox]}
+            onPress={() => navigation.navigate("CriarPasta")}
+          >
+            <View style={styles.button4FlexBox}>
+              <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>Criar Pasta</Text>
+            </View>
+          </Pressable>
         </View>
       </View>
       <Pressable
