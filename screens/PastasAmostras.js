@@ -2,11 +2,30 @@ import * as React from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
-import ListaPastas from "../components/ListaPastas";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
+import { Alert } from "react-native";
+
 
 const PastasAmostras = () => {
   const navigation = useNavigation();
+
+  // State to keep track of buttons
+  const [buttons, setButtons] = React.useState([]);
+
+  // Function to handle adding a new button
+  const handleCreatePasta = () => {
+    if (buttons.length < 7) {
+      const newButton = {
+        id: buttons.length + 1,
+        title: `Pasta ${buttons.length + 1}`,
+        creationDate: new Date().toLocaleDateString(), // Adding creation date
+      };
+      setButtons((prevButtons) => [...prevButtons, newButton]);
+    } else {
+      Alert.alert("Limite atingido", "Você já criou 5 pastas.");
+    }
+  };
+
 
   return (
     <View style={[styles.pastasAmostras, styles.iconLayout]}>
@@ -18,14 +37,17 @@ const PastasAmostras = () => {
         <View style={[styles.criarPastaWrapper, styles.button5FlexBox]}>
           <Pressable
             style={[styles.button4, styles.button4FlexBox]}
-            onPress={() => navigation.navigate("CriarPasta")}
+            onPress={handleCreatePasta} // Calls the function to add a new button
           >
             <View style={styles.button4FlexBox}>
-              <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>Criar Pasta</Text>
+              <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>
+                Criar Pasta
+              </Text>
             </View>
           </Pressable>
         </View>
       </View>
+
       <Pressable
         style={styles.chevronleftcirclefill}
         onPress={() => navigation.navigate("InserirAmostra")}
@@ -39,57 +61,21 @@ const PastasAmostras = () => {
       <Text style={[styles.histricoDeAnlises, styles.criarPastaFlexBox]}>
         Histórico de Análises
       </Text>
-      <ListaPastas
-        labelText="Etiqueta"
-        assistiveChipPosition="absolute"
-        assistiveChipHeight="72%"
-        assistiveChipWidth="27.7%"
-        assistiveChipTop="12%"
-        assistiveChipRight="3.6%"
-        assistiveChipBottom="16%"
-        assistiveChipLeft="68.7%"
-        labelTextFontSize={11}
-        labelTextColor="#fff"
-      />
-      <ListaPastas
-        propTop={221}
-        labelText="Etiqueta"
-        assistiveChipPosition="absolute"
-        assistiveChipHeight="72%"
-        assistiveChipWidth="27.7%"
-        assistiveChipTop="12%"
-        assistiveChipRight="3.6%"
-        assistiveChipBottom="16%"
-        assistiveChipLeft="68.7%"
-        labelTextFontSize={11}
-        labelTextColor="#fff"
-      />
-      <ListaPastas
-        propTop={264}
-        labelText="Etiqueta"
-        assistiveChipPosition="absolute"
-        assistiveChipHeight="72%"
-        assistiveChipWidth="27.7%"
-        assistiveChipTop="12%"
-        assistiveChipRight="3.6%"
-        assistiveChipBottom="16%"
-        assistiveChipLeft="68.7%"
-        labelTextFontSize={11}
-        labelTextColor="#fff"
-      />
-      <ListaPastas
-        propTop={307}
-        labelText="Etiqueta"
-        assistiveChipPosition="absolute"
-        assistiveChipHeight="72%"
-        assistiveChipWidth="27.7%"
-        assistiveChipTop="12%"
-        assistiveChipRight="3.6%"
-        assistiveChipBottom="16%"
-        assistiveChipLeft="68.7%"
-        labelTextFontSize={11}
-        labelTextColor="#fff"
-      />
+
+      {/* Components - button list below */}
+      <View style={styles.buttonList}>
+        {buttons.map((button) => (
+          <Pressable
+            key={button.id}
+            style={[styles.dynamicButton, styles.button4FlexBox]}
+          >
+            <Text style={styles.buttonText}>
+              {button.title} - {button.creationDate}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
       <Image
         style={styles.personcropcirclefillIcon}
         contentFit="cover"
@@ -100,9 +86,9 @@ const PastasAmostras = () => {
 };
 
 const styles = StyleSheet.create({
-  iconLayout: {
-    width: "100%",
-    overflow: "hidden",
+  buttonContainer: {
+    alignItems: "flex-start", // Align text to the left
+    padding: 10,
   },
   histricoDeAnlisesLayout: {
     width: "100%",
@@ -122,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  
+
   pastasAmostrasChild: {
     top: 0,
     left: 0,
@@ -187,6 +173,22 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     height: "100%",
     width: "100%",
+  },
+  buttonList: {
+    marginTop: 160, // Adjust this as needed to space buttons properly
+    paddingHorizontal: 20,
+  },
+  dynamicButton: {
+    backgroundColor: Color.colorGray_100,
+    borderRadius: Border.br_11xl,
+    paddingVertical: Padding.p_lg,
+    marginBottom: 10,
+    alignItems: "left",
+  },
+  buttonText: {
+    fontSize: FontSize.defaultBoldTitle3_size,
+    color: Color.schemesOnTertiary,
+    paddingLeft: 30,
   },
 });
 

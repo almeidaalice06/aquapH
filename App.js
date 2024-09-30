@@ -7,10 +7,8 @@ import PaginaInicial from "./screens/PaginaInicial";
 import InserirAmostra from "./screens/InserirAmostra";
 import Analise from "./screens/Analise";
 import Camera from "./screens/Camera";
-import ActionSheet from "./components/ActionSheet";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
@@ -42,6 +40,7 @@ const App = () => {
               component={PastasAmostras}
               options={{ headerShown: false }}
             />
+            
             <Stack.Screen
               name="InserirAmostra"
               component={InserirAmostra}
