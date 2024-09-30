@@ -1,9 +1,9 @@
-import * as React from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import React from "react"; // Change this line
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet, View, Text, Pressable, Alert } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
-import { Alert } from "react-native";
 
 
 const PastasAmostras = () => {
@@ -12,20 +12,42 @@ const PastasAmostras = () => {
   // State to keep track of buttons
   const [buttons, setButtons] = React.useState([]);
 
+  // Load folders from AsyncStorage when the component mounts
+  React.useEffect(() => {
+    const loadButtons = async () => {
+      try {
+        const savedButtons = await AsyncStorage.getItem("buttons");
+        if (savedButtons) {
+          setButtons(JSON.parse(savedButtons));
+        }
+      } catch (error) {
+        console.error("Failed to load buttons from AsyncStorage", error);
+      }
+    };
+    loadButtons();
+  }, []);
+
   // Function to handle adding a new button
-  const handleCreatePasta = () => {
+  const handleCreatePasta = async () => {
     if (buttons.length < 7) {
       const newButton = {
         id: buttons.length + 1,
         title: `Pasta ${buttons.length + 1}`,
-        creationDate: new Date().toLocaleDateString(), // Adding creation date
+        creationDate: new Date().toLocaleDateString(),
       };
-      setButtons((prevButtons) => [...prevButtons, newButton]);
+      const updatedButtons = [...buttons, newButton];
+      setButtons(updatedButtons);
+
+      // Save the updated buttons to AsyncStorage
+      try {
+        await AsyncStorage.setItem("buttons", JSON.stringify(updatedButtons));
+      } catch (error) {
+        console.error("Failed to save buttons to AsyncStorage", error);
+      }
     } else {
-      Alert.alert("Limite atingido", "Você já criou 5 pastas.");
+      Alert.alert("Limite atingido", "Você já criou 7 pastas.");
     }
   };
-
 
   return (
     <View style={[styles.pastasAmostras, styles.iconLayout]}>
@@ -37,7 +59,7 @@ const PastasAmostras = () => {
         <View style={[styles.criarPastaWrapper, styles.button5FlexBox]}>
           <Pressable
             style={[styles.button4, styles.button4FlexBox]}
-            onPress={handleCreatePasta} // Calls the function to add a new button
+            onPress={handleCreatePasta}
           >
             <View style={styles.button4FlexBox}>
               <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>
