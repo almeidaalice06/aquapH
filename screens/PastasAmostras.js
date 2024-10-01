@@ -1,10 +1,9 @@
-import React from "react"; // Change this line
+import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StyleSheet, View, Text, Pressable, Alert } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
-
 
 const PastasAmostras = () => {
   const navigation = useNavigation();
@@ -49,12 +48,24 @@ const PastasAmostras = () => {
     }
   };
 
+  // Function to clear all buttons
+  const clearAllButtons = async () => {
+    try {
+      await AsyncStorage.removeItem("buttons");
+      setButtons([]); // Clear the buttons from the state
+      console.log("All buttons cleared!");
+    } catch (error) {
+      console.error("Failed to clear buttons from AsyncStorage", error);
+    }
+  };
+
   return (
     <View style={[styles.pastasAmostras, styles.iconLayout]}>
       <View
         style={[styles.pastasAmostrasChild, styles.histricoDeAnlisesLayout]}
       />
 
+      {/** -------------------------- Criar Pasta ------------------------------------ */}
       <View style={[styles.button5, styles.button5FlexBox]}>
         <View style={[styles.criarPastaWrapper, styles.button5FlexBox]}>
           <Pressable
@@ -70,6 +81,23 @@ const PastasAmostras = () => {
         </View>
       </View>
 
+      {/** -------------------------- Limpar tudo ------------------------------------ */}
+      <View style={[styles.limpar5, styles.button5FlexBox]}>
+        <View style={[styles.criarPastaWrapper, styles.button5FlexBox]}>
+          <Pressable
+            style={[styles.limpar4, styles.button4FlexBox]}
+            onPress={clearAllButtons}
+          >
+            <View style={styles.button4FlexBox}>
+              <Text style={[styles.criarPasta, styles.criarPastaFlexBox]}>
+                Limpar Tudo
+              </Text>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+
+      {/** -------------------------------------------------------------- */}
       <Pressable
         style={styles.chevronleftcirclefill}
         onPress={() => navigation.navigate("InserirAmostra")}
@@ -109,7 +137,7 @@ const PastasAmostras = () => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    alignItems: "flex-start", // Align text to the left
+    alignItems: "flex-start",
     padding: 10,
   },
   histricoDeAnlisesLayout: {
@@ -130,7 +158,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   pastasAmostrasChild: {
     top: 0,
     left: 0,
@@ -149,7 +176,18 @@ const styles = StyleSheet.create({
   },
   button5: {
     top: 698,
-    left: 197,
+    left: 20,
+    borderRadius: Border.br_11xl,
+    backgroundColor: Color.colorGray_100,
+    width: 182,
+    height: 45,
+    paddingHorizontal: Padding.p_13xl,
+    paddingVertical: Padding.p_lg,
+    position: "absolute",
+  },
+  limpar5: {
+    top: 698,
+    left: 220,
     borderRadius: Border.br_11xl,
     backgroundColor: Color.colorGray_100,
     width: 182,
