@@ -1,13 +1,41 @@
 import React, { useState, useCallback } from "react";
-import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
+import { StyleSheet, View, Text, Pressable, Modal, Alert } from "react-native";
 import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker"; // Importa o image-picker
 import ActionSheet from "../components/ActionSheet";
 import { Padding, Color, Border, FontFamily, FontSize } from "../GlobalStyles";
 
 const InserirAmostra = () => {
   const navigation = useNavigation();
   const [addCircleImageVisible, setAddCircleImageVisible] = useState(false);
+  const [imageUri, setImageUri] = useState(null); // Estado para armazenar a imagem selecionada
+
+  // Função para pedir permissão da câmera
+  const askCameraPermission = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permissão necessária",
+        "Desculpe, nós precisamos da permissão da câmera para isso funcionar!"
+      );
+    }
+  };
+
+  // Função para abrir a câmera
+  const openCamera = async () => {
+    await askCameraPermission(); // Pede permissão antes de abrir a câmera
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri); // Armazena a imagem capturada
+    }
+  };
 
   const openAddCircleImage = useCallback(() => {
     setAddCircleImageVisible(true);
@@ -26,7 +54,7 @@ const InserirAmostra = () => {
           contentFit="cover"
           source={require("../assets/personcropcirclefill1.png")}
         />
-       
+
         <Pressable
           style={[styles.button5, styles.buttonLayout]}
           onPress={() => navigation.navigate("PastasAmostras")}
@@ -42,12 +70,22 @@ const InserirAmostra = () => {
             </Text>
           </View>
         </Pressable>
-        <Pressable style={styles.addCircle} onPress={openAddCircleImage}>
-          <Image
-            style={[styles.icon, styles.iconLayout]}
-            contentFit="cover"
-            source={require("../assets/add-circle.png")}
-          />
+
+        {/* Pressable para abrir a câmera */}
+        <Pressable style={styles.addCircle} onPress={openCamera}>
+          {imageUri ? ( // Se houver uma imagem capturada, exibe a imagem
+            <Image
+              style={[styles.icon, styles.iconLayout]}
+              source={{ uri: imageUri }}
+              contentFit="cover"
+            />
+          ) : (
+            <Image
+              style={[styles.icon, styles.iconLayout]}
+              contentFit="cover"
+              source={require("../assets/add-circle.png")}
+            />
+          )}
         </Pressable>
       </View>
 
