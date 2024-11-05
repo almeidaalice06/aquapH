@@ -49,26 +49,17 @@ const InserirAmostra = () => {
     <>
       <View style={[styles.inserirAmostra, styles.iconLayout]}>
         <View style={styles.inserirAmostraChild} />
-        <Image
-          style={styles.personcropcirclefillIcon}
-          contentFit="cover"
-          source={require("../assets/personcropcirclefill1.png")}
-        />
 
+        {/* Imagem transformada em botão, agora redireciona para Perfil.js */}
         <Pressable
-          style={[styles.button5, styles.buttonLayout]}
-          onPress={() => navigation.navigate("PastasAmostras")}
+          style={styles.personcropcirclefillIcon}
+          onPress={() => navigation.navigate("Perfil")} // Redireciona para a tela Perfil
         >
-          <View
-            style={[
-              styles.histticoDeAnlisesWrapper,
-              styles.anlisesWrapperFlexBox,
-            ]}
-          >
-            <Text style={[styles.histticoDeAnlises, styles.anlisesTypo]}>
-              Histórico de Análises
-            </Text>
-          </View>
+          <Image
+            style={styles.personcropcirclefillImage}
+            contentFit="cover"
+            source={require("../assets/personcropcirclefill1.png")}
+          />
         </Pressable>
 
         {/* Pressable para abrir a câmera */}
@@ -86,6 +77,35 @@ const InserirAmostra = () => {
               source={require("../assets/add-circle.png")}
             />
           )}
+        </Pressable>
+
+        {/* Botão para analisar a foto */}
+        {imageUri && (
+          <Pressable
+            style={[styles.analyzeButton, styles.buttonLayout]}
+            onPress={() =>
+              Alert.alert("Análise iniciada", "Analisando a foto...")
+            }
+          >
+            <Text style={styles.anlisesTypo}>Analisar Foto</Text>
+          </Pressable>
+        )}
+
+        {/* Botão "Histórico de Análises" movido para o rodapé */}
+        <Pressable
+          style={[styles.button5, styles.buttonLayout]}
+          onPress={() => navigation.navigate("PastasAmostras")}
+        >
+          <View
+            style={[
+              styles.histticoDeAnlisesWrapper,
+              styles.anlisesWrapperFlexBox,
+            ]}
+          >
+            <Text style={[styles.histticoDeAnlises, styles.anlisesTypo]}>
+              Histórico de Análises
+            </Text>
+          </View>
         </Pressable>
       </View>
 
@@ -114,20 +134,16 @@ const styles = StyleSheet.create({
     width: 300,
     backgroundColor: Color.colorGray_100,
     borderRadius: Border.br_11xl,
-    top: 694,
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "column",
     position: "absolute",
   },
   anlisesWrapperFlexBox: {
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "column",
+    flexDirection: "row",
   },
   anlisesTypo: {
-    height: 20,
-    display: "flex",
     textAlign: "center",
     color: Color.schemesOnTertiary,
     fontFamily: FontFamily.montserratSemiBold,
@@ -145,27 +161,18 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   personcropcirclefillIcon: {
-    height: "7.31%",
-    width: "14.82%",
+    position: "absolute",
     top: "6.57%",
     right: "5.03%",
-    bottom: "86.12%",
-    left: "80.15%",
+    width: 120, // Ajuste a largura conforme necessário
+    height: 120, // Ajuste a altura conforme necessário
     maxWidth: "100%",
     maxHeight: "100%",
-    position: "absolute",
     overflow: "hidden",
   },
-  anlisesQuimicas: {
-    width: 200,
-  },
-  anlisesQuimicasWrapper: {
-    width: 200,
-    height: 40,
-  },
-  button4: {
-    marginTop: -20,
-    left: 50,
+  personcropcirclefillImage: {
+    width: "100%", // A imagem ocupa 100% do espaço do botão
+    height: "100%", // A imagem ocupa 100% do espaço do botão
   },
   histticoDeAnlises: {
     width: 300,
@@ -175,7 +182,7 @@ const styles = StyleSheet.create({
     height: 42,
   },
   button5: {
-    marginTop: 50,
+    bottom: 50, // Posiciona o botão "Histórico de Análises" no rodapé
     left: 50,
   },
   addCircleImageOverlay: {
@@ -201,6 +208,10 @@ const styles = StyleSheet.create({
     width: 166,
     height: 166,
     position: "absolute",
+  },
+  analyzeButton: {
+    top: 500, // Ajuste a altura conforme necessário para posicionar o botão "Analisar Foto" mais próximo da imagem
+    left: 50,
   },
   inserirAmostra: {
     backgroundColor: Color.schemesOnTertiary,

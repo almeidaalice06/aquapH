@@ -14,12 +14,10 @@ const PaginaInicial = () => {
         style={[styles.button4, styles.button4FlexBox]}
         onPress={() => navigation.navigate("InserirAmostra")}
       >
-        <View style={styles.button4FlexBox}>
-          <Text style={styles.iniciar}>INICIAR</Text>
-        </View>
+        <Text style={styles.iniciar}>INICIAR</Text>
       </Pressable>
       <Text style={[styles.analizarOPh, styles.analizarOPhPosition]}>
-        Analizar o pH da água nunca foi tão fácil
+        Analisar o pH da água nunca foi tão fácil
       </Text>
       <Text style={[styles.aquaph, styles.aquaphFlexBox]}>AquapH</Text>
       <Image
@@ -61,22 +59,17 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontFamily: FontFamily.montserratSemiBold,
     color: "#0c1067",
-    width: 217,
-    height: 20,
-    display: "flex",
+    fontSize: FontSize.size_lg, // Aumente o tamanho da fonte, se necessário
     textAlign: "center",
-    fontSize: FontSize.defaultBoldTitle3_size,
-    justifyContent: "center",
-    alignItems: "center",
   },
   button4: {
     top: 622,
     left: 94,
     borderRadius: Border.br_11xl,
     width: 226,
-    height: 46,
-    paddingHorizontal: Padding.p_13xl,
-    paddingVertical: Padding.p_lg,
+    height: 60, // Aumente a altura do botão para evitar corte
+    justifyContent: "center", // Centraliza o texto verticalmente
+    alignItems: "center", // Centraliza o texto horizontalmente
     position: "absolute",
     backgroundColor: Color.schemesOnTertiary,
   },
