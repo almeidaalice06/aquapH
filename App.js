@@ -22,7 +22,6 @@ const App = () => {
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
   });
-
   if (!fontsLoaded && !error) {
     return null;
   }
@@ -56,11 +55,12 @@ const App = () => {
             component={Camera}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="Perfil"
+          
+         { <Stack.Screen
+            name="Perfil" 
             component={Perfil} // Adicionando a tela Perfil ao Navigator
             options={{ headerShown: false }}
-          />
+         /> }
         </Stack.Navigator>
       ) : null}
     </NavigationContainer>
